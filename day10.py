@@ -9,8 +9,7 @@ diff = [data[i+1]-data[i] for i in range(len(data)-1)]
 one = diff.count(1)
 three = diff.count(3)
 print(one*three)
-
-
+#####
 graph = {x: set([]) for x in data}
 
 for i in data:
@@ -20,9 +19,7 @@ for i in data:
         if abs(i-e) <= 3:
             graph[i].add(e)
 
-
 paths = {}
-
 def recursive(n):
     global paths
     if n in paths:
