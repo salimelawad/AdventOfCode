@@ -1,41 +1,36 @@
 import pandas as pd
 from itertools import combinations 
-with open ("2020/data/day10_sample.txt", "r") as myfile:
+with open ("2020/data/day10.txt", "r") as myfile:
     data=list(map(int, myfile.read().split("\n")))
 
 data = data + [0, max(data)+3]
 data = sorted(data)
-print(data)
 diff = [data[i+1]-data[i] for i in range(len(data)-1)]
-print(diff)
 one = diff.count(1)
 three = diff.count(3)
 print(one*three)
 
-path_count = [0 for x in data]
-# for i in range(len(data)):
-#     plug = data[(i)]
-#     if plug-1 in path_count:
-#         path_count[plug] = path_count[plug] + path_count[plug-1] + 1
-#     if plug-3 in path_count:
-#         path_count[plug] = path_count[plug] + path_count[plug-3] + 1
-#     if plug +3 in path_count:
-#         path_count[plug] = path_count[plug]+1
-#     if plug +1 in path_count:
-#         path_count[plug] = path_count[plug]+1
 
-# print(path_count)
+graph = {x: set([]) for x in data}
 
-# graph = {x: set([]) for x in data}
+for i in data:
+    for e in data:
+        if i == e:
+            break
+        if abs(i-e) <= 3:
+            graph[i].add(e)
 
-# for i in data:
-#     if (i + 1) in graph:
-#         graph[i].add(i + 1)
-#     if (i + 3) in graph:
-#         graph[i].add(i + 3)
 
-# print(graph)
+paths = {}
 
-data_set = set(data)
+def recursive(n):
+    global paths
+    if n in paths:
+        return paths[n]
+    if n == 0:
+        return 1
+    paths[n] = sum([recursive(x) for x in graph[n]])
+    return paths[n]
 
-for i in data_set:
+recursive(max(data))
+print(paths[max(data)])
