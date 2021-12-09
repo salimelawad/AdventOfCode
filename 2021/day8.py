@@ -51,5 +51,6 @@ for line in input:
         if set(normalize(remapped)) == set(normalize(needed)):
             r = normalize(apply_mapping(line[10:], aMap))
             number.append(int("".join([number_map[x] for x in r])))
+            break
 
 print(sum(number))
