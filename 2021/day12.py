@@ -25,7 +25,7 @@ def dfs(path, graph, node, end):
         visitedList.append(path)
         return
     for neighbour in graph[node]:
-        if neighbour not in path or neighbour.upper() == neighbour:
+        if neighbour not in path or neighbour.isupper():
             dfs(path, graph, neighbour, end)
 
 
